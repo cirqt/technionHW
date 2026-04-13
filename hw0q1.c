@@ -8,7 +8,7 @@ int main() {
     printf("Hello, World!\n");
     /*
      * Well,
-     *Are you ready?
+     * Are you ready?
      */
     return 0;
 }
