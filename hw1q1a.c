@@ -3,7 +3,9 @@
 int main() {
     int input = 0;
     while (scanf("%d", &input) != EOF) {
-        if ((input >= 100 && input <= 999) || (-1*input >= 100 && -1*input <= 999))
+        if (input >= 100 && input <= 999)
+            printf("Triple Digit.\n");
+        else if (-1*input >= 100 && -1*input <= 999)
             printf("Triple Digit.\n");
         else if (input % 2 == 0 && input > 0)
             printf("Positive Even.\n");
