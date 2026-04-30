@@ -2,14 +2,14 @@
 
 
 int main() {
-    // Counting from 3
-    for(int i = 3; i > 0; i--) {
-        printf("%d\n", i);
+    char equation[] = "";
+    scanf("%s", equation);
+    char num1[] = "";
+    char ch = equation[0];
+    int i = 0;
+    int j = 0;
+    while (ch != '+' || ch != '-' || ch != '/' || ch != '*') {
+        num1[j] += equation[i];
+        i += 1;
     }
-    printf("Hello, World!\n");
-    /*
-     * Well,
-     * Are you ready?
-     */
-    return 0;
 }
