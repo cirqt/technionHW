@@ -2,7 +2,7 @@
 
 int main() {
     int n, m = 0;
-    int sumOfDigits = 0; //summing up the digits whenever we divide n/10
+    double sumOfDigits = 0; //summing up the digits whenever we divide n/10
     scanf("%d", &n);
     scanf("%d", &m);
     int temp = n;
@@ -30,6 +30,5 @@ int main() {
         sumOfDigits += n%10;
         n /= 10;
     }
-    printf("second Part: %d\n", secondPart);
-    printf("Reversed: %d, Average: %d",firstPart+secondPart, sumOfDigits/digitsOfN); //add both numbers 32100 + 45 divide the sum of the digits by the number of digits
+    printf("Reversed: %d, Average: %f",firstPart+secondPart, sumOfDigits/digitsOfN); //add both numbers 32100 + 45 divide the sum of the digits by the number of digits
 }
