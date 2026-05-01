@@ -30,5 +30,5 @@ int main() {
         sumOfDigits += n%10;//in the example case, 123 become 32100
         n /= 10;
     }
-    printf("Reversed: %d, Average: %.2f",firstPart+secondPart, sumOfDigits/digitsOfN); //add both numbers 32100 + 45 divide the sum of the digits by the number of digits
-}
+    printf("Reversed: %d, Average: %.2f",firstPart+secondPart, sumOfDigits/digitsOfN);
+}//add both numbers 32100 + 45 divide the sum of the digits by the number of digits
