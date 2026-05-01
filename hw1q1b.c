@@ -33,4 +33,5 @@ int main() {
     int sum = firstPart+secondPart;
     double digitAverage = sumOfDigits/digitsOfN;
     printf("Reversed: %d, Average: %.2f",sum, digitAverage);
-}//add both numbers 32100 + 45 divide the sum of the digits by the number of digits
+}//add both numbers 32100 + 45 divide
+//the sum of the digits by the number of digits
