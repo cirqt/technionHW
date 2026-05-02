@@ -5,17 +5,9 @@ int main() {
     double k = 0;
     scanf("%lf", &k);
     scanf("%c", &c);
+    c++;
     int roundK = (int)k;
     if (roundK - k == 0) {
-        if (c == 'z') {
-            c = 'a';
-            k--;
-        }
-        if (c == 'Z') {
-            c = 'A';
-            k--;
-        }
-            c = 'A';
         int letter = 0;
         if (c >= 'A' && c <= 'Z') {
             c += 32;
@@ -30,9 +22,15 @@ int main() {
             printf("Not A Letter.");
         if (letter == 1) {
             while (k != 0) {
+                if (c == 'z'+1) {
+                    c = 'a';
+                }
+                else if (c == 'Z'+1) {
+                    c = 'A';
+                }
                 k--;
-                c++;
                 printf("%c",c);
+                c++;
             }
         }
     }
