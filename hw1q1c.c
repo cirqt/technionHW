@@ -14,8 +14,7 @@ int main() {
                 printf("%c", c);
                 c++;
             }
-        }
-        else if (c >= 'a' && c < 'z') { //check lowercase
+        } else if (c >= 'a' && c < 'z') { //check lowercase
             c -= 33;
             for (int i = 0; i < k; i++) { //iterate k times backwards from c
                 if (c == 'A'-1) {
