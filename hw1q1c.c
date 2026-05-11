@@ -7,8 +7,10 @@ int main() {
         if (c >= 'A' && c <= 'Z') { //check uppercase
             c += 33;
             for (int i = 0; i < k; i++) { //iterate k times onwards from c
-                if (c == 'z'+1)
-                    c = 'a'; //if reaches the end go back to a
+                if (c == 'z'+1) {
+                    //if reaches the end go back to a
+                    c = 'a';
+                }
                 printf("%c", c);
                 c++;
             }
@@ -16,8 +18,10 @@ int main() {
         else if (c >= 'a' && c < 'z') { //check lowercase
             c -= 33;
             for (int i = 0; i < k; i++) { //iterate k times backwards from c
-                if (c == 'A'-1) //if reaches the end go back to Z
+                if (c == 'A'-1) {
+                    //if reaches the end go back to Z
                     c = 'Z';
+                }
                 printf("%c", c);
                 c--;
             }
