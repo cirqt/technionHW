@@ -25,12 +25,10 @@ int main() {
                 printf("%c", c);
                 c--;
             }
-        }
-        else {
+        } else {
             printf("Not A Letter.");
         }
-    }
-    else {
+    } else {
         printf("Wrong Input Type.");
     }
 }
