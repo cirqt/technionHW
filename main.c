@@ -9,9 +9,7 @@ bool is_sum(int* a, int sizeA);
 void lexiographic_sort(int* arr, int n);
 int  count_num_of_one(int n);
 int  pow_of_2(int n);
-
 void free_arr(int** arr_2d, int* size_of_row, int num_of_rows);
-
 void no_sums_sets(int* src, int n, int*** arr_2d, int** size_of_row, int* num_of_rows);
 
 int main() {
@@ -65,14 +63,16 @@ void no_sums_sets(int* src, int n, int*** arr_2d, int** size_of_row, int* num_of
     for (int i = 0; i < pow_of_2(n); i++) {
         bool invalid = false;
         int* subsetA = subset_from_mask(src, n, i);
+        //construct the 1d array of valid subsets using binary representation
+        //iterate each binary representation and its corresponding subset
         for (int j = 0; j < pow_of_2(n); j++) {
             if (i != j) {
                 int* subsetB = subset_from_mask(src, n, j);
                 if (!is_sum(subsetA, count_num_of_one(i))) {
-                    invalid = true;
+                    invalid = true;//exclude subsets that are not sum-free
                 }
                 if (is_subset(subsetA, count_num_of_one(i), subsetB, count_num_of_one(j)) && is_sum(subsetB, count_num_of_one(j))) {
-                    invalid = true;
+                    invalid = true;//exclude subsets that are subsets of other sum-free sets
                 }
                 free(subsetB);
             }
@@ -80,14 +80,14 @@ void no_sums_sets(int* src, int n, int*** arr_2d, int** size_of_row, int* num_of
         free(subsetA);
         if (!invalid) {
             valid_subsets[count] = i;
-            count++;
+            count++; //count for length of subset array
         }
 
     }
     *num_of_rows = count;
     *size_of_row = (int*)malloc(count * sizeof(int));
     *arr_2d = (int**)malloc(count * sizeof(int*));
-    lexiographic_sort(valid_subsets, count);
+    lexiographic_sort(valid_subsets, count);//sort
     for (int i = 0; i < count; i++) {
         (*arr_2d)[i] = subset_from_mask(src, n, valid_subsets[i]);
         (*size_of_row)[i] = count_num_of_one(valid_subsets[i]);
@@ -97,8 +97,8 @@ void no_sums_sets(int* src, int n, int*** arr_2d, int** size_of_row, int* num_of
 }
 int* subset_from_mask(int* src, int n, int mask) {
     int* subset = (int*)malloc(count_num_of_one(mask) * sizeof(int));
-    int cnt = 0;
-    for (int i = 0; i < n; i++) {
+    int cnt = 0; //create the array from the mask
+    for (int i = 0; i < n; i++) { //if bit is 0 exclude, if bit is 1 include
         if (mask % 2 == 1) {
             subset[cnt] = src[i];
             cnt++;
@@ -108,7 +108,7 @@ int* subset_from_mask(int* src, int n, int mask) {
     return subset;
 }
 bool is_subset(int* subsetA, int sizeA, int* subsetB, int sizeB) {
-    for (int i = 0; i < sizeA; i++) {
+    for (int i = 0; i < sizeA; i++) { //check if every element in subsetA is in subsetB
         bool found = false;
         for (int j = 0; j < sizeB; j++) {
             if (subsetA[i] == subsetB[j]) {
@@ -121,11 +121,11 @@ bool is_subset(int* subsetA, int sizeA, int* subsetB, int sizeB) {
     }
     return true;
 }
-bool is_sum(int* subsetA, int sizeA) {
+bool is_sum(int* subsetA, int sizeA) { //check if array is sum-free
     for (int i = 0; i < sizeA; i++) {
         for (int j = 0; j < sizeA; j++) {
-            if (i != j) {
-                for (int k = 0; k < sizeA; k++) {
+            if (i != j) { 
+                for (int k = 0; k < sizeA; k++) { //compare two distinct elements with third element
                     if (subsetA[i] + subsetA[j] == subsetA[k] && k != i && k != j) {
                         return false;
                     }
@@ -145,7 +145,7 @@ int count_num_of_one(int n) {
     return count;
 }
 
-int pow_of_2(int n) {
+int pow_of_2(int n) { //function to calculate 2^n
     int p = 1;
     while(n-->0) {
         p*=2;
@@ -153,19 +153,19 @@ int pow_of_2(int n) {
     return p;
 }
 
-void free_arr(int** arr_2d, int* size_of_row, int num_of_rows) {
-    for (int i = 0; i < num_of_rows; i++) {
-        free(arr_2d[i]);
+void free_arr(int** arr_2d, int* size_of_row, int num_of_rows) { //free memory for 2d array 
+    for (int i = 0; i < num_of_rows; i++) { //and each array in it
+        free(arr_2d[i]); //and size of row array
     }
     free(arr_2d);
     free(size_of_row);
 }
-void lexiographic_sort(int* arr, int n) {
-    int a = 0;
+void lexiographic_sort(int* arr, int n) { //sort lexiographically the array 
+    int a = 0; //of binary representations of the subsets of the final array
     int b = 1;
     bool done = false;
     while (done == false) {
-        if (arr[a] > arr[b]) {
+        if (arr[a] > arr[b]) { //if next element is smaller, swap
             int temp = arr[a];
             arr[a] = arr[b];
             arr[b] = temp;
