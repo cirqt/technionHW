@@ -37,7 +37,7 @@ int main() {
 char* center_of_mass(char* arr) {
     int cnt = 0;
     int wordcnt = 1;
-    while (arr[cnt] != '\0') {
+    while (arr[cnt] != '\0') { //given string, count number of words
         if (arr[cnt] == ' ' && arr[cnt+1] <= 'z' && arr[cnt+1] >= 'a') {
             wordcnt++;
         }
@@ -45,13 +45,13 @@ char* center_of_mass(char* arr) {
     }
     char** words = (char**) malloc(wordcnt *sizeof(char*));
     int iterate = 0;
-    for (int i = 0; i<wordcnt; i++) {
+    for (int i = 0; i<wordcnt; i++) { //for each word find the length
         int letter = 0;
-        int lettercount = 0;
+        int lettercount = 0; 
         while (arr[iterate+lettercount] != ' ' && arr[iterate+lettercount] != '\0')
-            lettercount++;
+            lettercount++; //find word length
         char* word = (char*)malloc(lettercount+1*(sizeof(char)));
-        while (arr[iterate] != '\0' && arr[iterate] != ' ') {
+        while (arr[iterate] != '\0' && arr[iterate] != ' ') { //save the word in the 2d array
             word[letter] = arr[iterate];
             iterate++;
             letter++;
@@ -59,7 +59,7 @@ char* center_of_mass(char* arr) {
         word[lettercount] = '\0';
         if (i < wordcnt-1) iterate++;
         words[i] = word;
-    }
+    } //send the array to calculate the mass distance
     char* result = mass_distance(words, wordcnt);
     for (int i = 0; i< wordcnt; i++) {
         free(words[i]);
@@ -114,7 +114,7 @@ char** get_all_sub_strings(char* str, int n) {
 int same_length_two_word_distance(char* wordA, int lenA, char* wordB) {
     int sum = 0;
     for (int i = 0; i<lenA; i++) { //assuming words are the same length
-        sum += wordA[i] >= wordB[i] ? wordA[i] - wordB[i] : wordB[i] - wordA[i];
+        sum += wordA[i] >= wordB[i] ? wordA[i] - wordB[i] : wordB[i] - wordA[i]; //sum the difference
     }
     return sum;
 }
@@ -123,11 +123,11 @@ int two_word_distance(char* wordA, int lenA, char* wordB, int lenB) {
     int min = 2147483647; //assuming wordA is longer than wordB
     char** substrings = get_all_sub_strings(wordA, lenA);
     for (int i = 0; i<pow_of_2(lenA); i++) {
-            char* substring = substrings[i];
+            char* substring = substrings[i]; 
             int cnt = 0;
             while (substring[cnt] != '\0')
                 cnt++;
-        if (cnt == lenB) {
+        if (cnt == lenB) { //save the minimum dist between the word and the substrings
             min = same_length_two_word_distance(substring, cnt, wordB) < min ? same_length_two_word_distance(substring, cnt, wordB) : min;
         }
         free(substring);
@@ -144,7 +144,7 @@ int group_to_word_distance(char* wordu, int lenU, char** wordsS, int wordsLen) {
         int lenA = 0;
         while (substring[lenA] != '\0')
             lenA++;
-
+        //compare the word with the substring according to the given defintion
         int compare = lenU > lenA ? two_word_distance(wordu, lenU, substring, lenA) : two_word_distance(substring, lenA, wordu, lenU);
         max = compare > max ? compare : max;
     }
@@ -156,31 +156,31 @@ char* mass_distance(char** wordsS, int lenS) {
     char* candidate = (char*)malloc((lenS + 1) * sizeof(char));
 
     for (int i = 0; i < lenS; i++) {
-        word[i] = 'a';
+        word[i] = 'a'; //initialize the word with 'a's
     }
     word[lenS] = '\0';
 
     for (int i = 0; i <= lenS; i++) {
-        candidate[i] = word[i];
+        candidate[i] = word[i]; //initialize the candidate the same way
     }
     int minDist = group_to_word_distance(candidate, lenS, wordsS, lenS);
-
+    //calculate initial distance
     bool check = true;
     while (check) {
         int pos = lenS - 1;
         while (pos >= 0 && word[pos] == 'z') {
-            word[pos] = 'a';
+            word[pos] = 'a'; //if reached z resent and move to next characters
             pos--;
         }
-        if (pos < 0) {
+        if (pos < 0) { //break if reached thew start of the word
             check = false;
             continue;
         }
-        word[pos]++;
-        int dist = group_to_word_distance(word, lenS, wordsS, lenS);
+        word[pos]++; //increment the character at lexi order
+        int dist = group_to_word_distance(word, lenS, wordsS, lenS); //calculate the distance of the new word
         if (dist < minDist) {
             minDist = dist;
-            for (int i = 0; i <= lenS; i++) {
+            for (int i = 0; i <= lenS; i++) {// save if better
                 candidate[i] = word[i];
             }
         }
