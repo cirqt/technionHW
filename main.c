@@ -154,34 +154,36 @@ int group_to_word_distance(char* wordu, int lenU, char** wordsS, int wordsLen) {
 char* mass_distance(char** wordsS, int lenS) {
     char* word = (char*)malloc((lenS + 1) * sizeof(char));
     char* candidate = (char*)malloc((lenS + 1) * sizeof(char));
-    for (int i = 0; i<lenS; i++) {
+
+    for (int i = 0; i < lenS; i++) {
         word[i] = 'a';
     }
-    for (int i = 0; i<=lenS; i++) {
+    word[lenS] = '\0';
+
+    for (int i = 0; i <= lenS; i++) {
         candidate[i] = word[i];
     }
     int minDist = group_to_word_distance(candidate, lenS, wordsS, lenS);
-    word[lenS] = '\0';
-    candidate[0] = '\0';
+
     bool check = true;
-    while (check)
+    while (check) {
         int pos = lenS - 1;
-        while (pos >= 0 && current[pos] == 'z'){
+        while (pos >= 0 && word[pos] == 'z') {
             word[pos] = 'a';
             pos--;
         }
         if (pos < 0) {
             check = false;
+            continue;
         }
         word[pos]++;
         int dist = group_to_word_distance(word, lenS, wordsS, lenS);
         if (dist < minDist) {
-            minDist = dist
-            for (int i = 0; i<=lenS; i++){
+            minDist = dist;
+            for (int i = 0; i <= lenS; i++) {
                 candidate[i] = word[i];
             }
         }
-
     }
     free(word);
     return candidate;
