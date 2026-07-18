@@ -57,7 +57,7 @@ char* center_of_mass(char* arr) {
             letter++;
         }
         word[lettercount] = '\0';
-        iterate++;
+        if (i < wordcnt-1) iterate++;
         words[i] = word;
     }
     char* result = mass_distance(words, wordcnt);
@@ -139,7 +139,6 @@ int two_word_distance(char* wordA, int lenA, char* wordB, int lenB) {
 int group_to_word_distance(char* wordu, int lenU, char** wordsS, int wordsLen) {
     int max = 0;
     char* substring = "";
-    int cnt = 0;
     for (int i = 0; i<wordsLen; i++) {
         substring = wordsS[i];
         int lenA = 0;
