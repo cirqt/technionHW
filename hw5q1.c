@@ -7,24 +7,19 @@ int mergeAteliers(int a[], int na, int b[], int nb, int out[]) {
     while (i < na || j < nb) {
         int val;
         if (a[i] > b[j] && i < na) {
-            val = a[i];
-            i++;
+            val = a[i]; i++;
         } else if (b[j] > a[i]) {
-            val = b[j];
-            j++;
+            val = b[j]; j++;
         } else {
             val = i >= na ? b[j] : a[i];
-            i++;
-            j++;
+            i++; j++;
         }
         if (k == 0 || out[k - 1] != val) {
-            out[k] = val;
-            k++;
+            out[k] = val; k++;
         }
     }
     return k;
 }
-
 int main() {
     int na;
     scanf("%d", &na);
