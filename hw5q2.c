@@ -6,9 +6,12 @@
 void moveBoxes(int n, char from, char to, char via) {
     if (n == 0) //end case, no boxes do nothing
         return;
-    moveBoxes(n-1, from, via, to); //assume can move all except last box to via
-    printf("%d: %c -> %c \n", n, from, to); //print the move of the biggest box to C
-    moveBoxes(n-1, via, to, from); //back to starting case but without the largest box
+    moveBoxes(n-1, from, via, to);
+    //assume can move all except last box to via
+    printf("%d: %c -> %c\n", n, from, to);
+    //print the move of the biggest box to C
+    moveBoxes(n-1, via, to, from);
+    //back to starting case but without the largest box
 
 }
 
