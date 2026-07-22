@@ -18,4 +18,3 @@ int main() {
     moveBoxes(n, 'A', 'C', 'B');
     return 0;
 }
-
